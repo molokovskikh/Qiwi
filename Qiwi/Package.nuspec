@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Qiwi</id>
+    <version>1.0.12</version>
+    <title>Qiwi Shop</title>
+    <authors>Sergey Molokovskikh</authors>
+    <owners></owners>
+    <description>
+      Module integration with payment system QIWI, for online shopping based on ASP.NET  -  
+      Модуль для интеграции интернет магазина на базе ASP.NET, с платежной системой Qiwi.
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      Module integration with payment system QIWI, for online shopping based on ASP.NET 
+      (With using WCF and platform .NET4)
+    </summary>
+    <language>ru-RU</language>
+    <projectUrl>https://nuget.org/packages/Qiwi</projectUrl>
+    <iconUrl>http://ishopnew.qiwi.ru/images/logo.gif</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <copyright>Copyright  2013</copyright>
+   <!-- <dependencies>
+        <group targetFramework="net40">
+          <dependency id="log4net" version="1.2.10" />
+        </group>
+    </dependencies>
+    -->
+    <references>
+      <reference file="QiwiShop.dll">
+      </reference>
+    </references>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.ServiceModel" targetFramework="net40"/>
+      <frameworkAssembly assemblyName="System.ServiceModel.Web"  targetFramework="net40"/>
+      <frameworkAssembly assemblyName="System.IdentityModel"  targetFramework="net40"/>
+    </frameworkAssemblies>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="lib\" target="lib" />
+    <file src="tools\" target="tools" />
+    <file src="content\" target="content" />
+  </files>
+</package>

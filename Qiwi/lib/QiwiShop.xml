@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QiwiShop</name>
+    </assembly>
+    <members>
+        <member name="T:QiwiShop.ResultComplete">
+            <summary>
+            Справочник кодов завершения
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.None">
+            <summary>
+            Не определенный
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.Success">
+            <summary>
+            Успех
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.Unavailable">
+            <summary>
+            Сервер занят, повторите запрос позже
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.LoginFailed">
+            <summary>
+            Ошибка авторизации (неверный логин/пароль)
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.NotFoundBill">
+            <summary>
+            Счет не найден
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.ExistsBillbyTxn">
+            <summary>
+            Счет с таким txn-id уже существует
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.LessAmount">
+            <summary>
+            Сумма слишком мала
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.ExceedAmount">
+            <summary>
+            Превышена максимальная сумма платежа – 15 000р.
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.ExceedIntervalListBill">
+            <summary>
+            Превышение максимального интервала получения списка счетов
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.NotFoundAgent">
+            <summary>
+            Агента не существует в системе
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.UnknowError">
+            <summary>
+            Неизвестная ошибка
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.ErrorEncrypt">
+            <summary>
+            Ошибка шифрования
+            </summary>
+        </member>
+        <member name="F:QiwiShop.ResultComplete.ExceedCountRequest">
+            <summary>
+            Превышено максимальное кол-во одновременно выполняемых запросов
+            </summary>
+        </member>
+        <member name="T:QiwiShop.StatusBill">
+            <summary>
+            Справочник статусов счетов
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.None">
+            <summary>
+            Не определенный
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.Exposed">
+            <summary>
+            Выставлен
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.Spend">
+            <summary>
+            Проводится
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.Paid">
+            <summary>
+            Оплачен
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.CanceledTerminal">
+            <summary>
+            Отменен (ошибка на терминале)
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.CanceledCustomer">
+            <summary>
+            Отменен (ошибка авторизации: недостаточно средств на балансе, отклонен абонентом при оплате с лицевого счета оператора сотовой связи и т.п.).
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.Cancelled">
+            <summary>
+            Отменен
+            </summary>
+        </member>
+        <member name="F:QiwiShop.StatusBill.CancelledTimeout">
+            <summary>
+            Отменен (Истекло время)
+            </summary>
+        </member>
+        <member name="T:QiwiShop.IShopServerWS">
+            <summary>
+            Интерфейс взаимодействия Интернет-магазина  ОСМП Qiwi
+            </summary>
+        </member>
+        <member name="T:QiwiShop.ShopServerWSClient">
+            <summary>
+            Клиент ОСМП QIwi
+            </summary>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.createBillCcy(System.String,System.String,System.String,System.String,System.String,System.String,System.DateTime,System.Int32,System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="login"></param>
+            <param name="password"></param>
+            <param name="user"></param>
+            <param name="amount"></param>
+            <param name="comment"></param>
+            <param name="txn"></param>
+            <param name="lifetime"></param>
+            <param name="currency"></param>
+            <param name="alarm"></param>
+            <param name="create"></param>
+            <param name="from"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.createBill(System.String,System.String,System.String,System.String,System.String,System.String,System.DateTime,System.Int32,System.Boolean)">
+            <summary>
+            Создание счета
+            </summary>
+            <param name="login">логин (id) магазина</param>
+            <param name="password">пароль для магазина</param>
+            <param name="user">идентификатор пользователя (номер телефона);</param>
+            <param name="amount">сумма, на которую выставляется счет (разделитель «.»)</param>
+            <param name="comment">комментарий к счету, который увидит пользователь (максимальная длина 255 байт)</param>
+            <param name="txn">уникальный идентификатор счета (максимальная длина 30 байт)</param>
+            <param name="lifetime">время действия счета (в формате dd.MM.yyyy HH:mm:ss)</param>
+            <param name="alarm">отправить оповещение пользователю (1 - уведомление SMS-сообщением, 2 - уведомление звонком, 0 - не оповещать);</param>
+            <param name="create">флаг для создания нового пользователя (если он не зарегистрирован в системе)</param>
+            <returns>В ответ возвращается результат выполнения функции</returns>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.cancelBill(System.String,System.String,System.String)">
+            <summary>
+            Отмена выставленного счета
+            </summary>
+            <param name="login">логин (идентификатор) магазина</param>
+            <param name="password">пароль для магазина</param>
+            <param name="txn">уникальный идентификатор счета( максимальная длина 30 байт)</param>
+            <returns>Возращается результат выполнения функции
+            </returns>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.checkBill(System.String,System.String,System.String,System.Decimal@,System.DateTime@,System.DateTime@,System.Int32@)">
+            <summary>
+            Проверка состояния счета
+            </summary>
+            <param name="login">логин (идентификатор) магазина</param>
+            <param name="password">пароль для магазина</param>
+            <param name="txn">уникальный идентификатор счета (максимальная длина 30 байт).</param>
+            <param name="amount">сумма, на которую выставлен счет (разделитель «.»)</param>
+            <param name="date">дата выставления счета (в формате dd.MM.yyyy HH:mm:ss)</param>
+            <param name="lifetime">время действия счета (в формате dd.MM.yyyy HH:mm:ss)</param>
+            <param name="status">статус счета (см. Справочник статусов счетов) в случае положительного значения или код ошибки (в случае отрицательного значения)</param>
+            <returns>идентификатор пользователя (номер телефона)</returns>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.checkBill_Status(System.Int32,QiwiShop.ResultComplete@,QiwiShop.StatusBill@)">
+            <summary>
+            Выполняет разбор статуса счета возващенный функцией checkBill
+            </summary>
+            <param name="status">Значение полученное в методе checkBill</param>
+            <param name="result">Код ошибки, если ошибки нет, то значение равно None</param>
+            <param name="state">Статус счета, если была ошибка, то значение равно None</param>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.createBillExt(System.String,System.String,System.String,System.Decimal,System.String,System.String,System.DateTime,System.Int32,System.Boolean,System.Int32)">
+            /// <summary>
+            Создание счета
+            </summary>
+            <param name="login">логин (id) магазина</param>
+            <param name="password">пароль для магазина</param>
+            <param name="user">идентификатор пользователя (номер телефона);</param>
+            <param name="amount">сумма, на которую выставляется счет (разделитель «.»)</param>
+            <param name="comment">комментарий к счету, который увидит пользователь (максимальная длина 255 байт)</param>
+            <param name="txn">уникальный идентификатор счета (максимальная длина 30 байт)</param>
+            <param name="lifetime">время действия счета (в формате dd.MM.yyyy HH:mm:ss)</param>
+            <param name="alarm">отправить оповещение пользователю (1 - уведомление SMS-сообщением, 2 - уведомление звонком, 0 - не оповещать);</param>
+            <param name="create">флаг для создания нового пользователя (если он не зарегистрирован в системе)</param>
+            <param name="from"></param>
+            <returns>В ответ возвращается результат выполнения функции</returns>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.cancelBillPayedAmount(System.String,System.String,System.String,System.Decimal,System.Int32)">
+            <summary>
+            Неизвестная функция
+            </summary>
+            <param name="login">логин (id) магазина</param>
+            <param name="password">пароль для магазина</param>
+            <param name="txn">уникальный идентификатор счета (максимальная длина 30 байт)</param>
+            <param name="amount">сумма, на которую выставляется счет (разделитель «.»)</param>
+            <param name="cancelIdx"></param>
+            <returns></returns>
+        </member>
+        <member name="M:QiwiShop.ShopServerWSClient.getBillList(System.String,System.String,System.DateTime,System.DateTime,QiwiShop.StatusBill,System.Int32@)">
+            <summary>
+            Получение списка счетов
+            </summary>
+            <param name="login">логин (идентификаторов) магазина</param>
+            <param name="password">пароль для магазина</param>
+            <param name="dateFrom">дата начала периода</param>
+            <param name="dateTo">дата окончания периода</param>
+            <param name="status">статус счетов (Для получения счетов всех статусов указать «0», для указания конкретного счета см. Справочник статусов счетов)</param>
+            <param name="count">– количество счетов (в случае положительного значения) / код ошибки (в случае отрицательного числа)</param>
+            <returns></returns>
+        </member>
+        <member name="T:QiwiShop.IShopClientWS">
+            <summary>
+            Интерфейс взаимодействия ОСМП Qiwi с Интернет-магазином
+            </summary>
+        </member>
+        <member name="T:QiwiShop.ShopClientWSClient">
+            <summary>
+            Клиент для эмуляции сервера ОСМП (только для тестирования)
+            </summary>
+        </member>
+        <member name="M:QiwiShop.ShopClientWSClient.updateBill(System.String,System.String,System.String,QiwiShop.StatusBill)">
+             <summary>
+             Оповещение об изменении статуса счета. Вызывается при оплате/отмене счета
+             </summary>
+             <param name="login">логин (id) магазина</param>
+             <param name="password">– пароль. Данный параметр может быть сформирован 2 способами:
+            С использованием подписи WSS X.509, когда каждое уведомление подписывается сервером
+            ОСМП. Данный варинт более сложен в реализации, однако намного безопаснее;
+            С пользованием упрощенного алгоритма. В поле записывается специально вычисленное по
+            следующему алгоритму значение:
+            uppercase(md5(txn + uppercase(md5(пароля))))
+            Все строки, от которых вычисляется функция md5, преобразуются в байты в кодировке 
+            windows-1251. Данный вариант в реализации проще, однако, менее надежен.</param>
+             <param name="txn">уникальный идентификатор счета (максимальная длина 30 байт</param>
+             <param name="status">новый статус счета</param>
+             <returns>В ответ возвращается результат выполнения запроса</returns>
+        </member>
+        <member name="T:QiwiShop.ServiceHostException">
+            <summary>
+            Ошибки при создании Хост-сервиса
+            </summary>
+            <param name="exc"></param>
+        </member>
+        <member name="T:QiwiShop.updateBillEvent">
+            <summary>
+            Основной обработчик ОСМП на стороне интернет магазина
+            </summary>
+            <param name="login">логин магазина в Qiwi для проверки</param>
+            <param name="password">пароль магазина в Qiwi для проверки</param>
+            <param name="txn">идентификатор заказа магазина</param>
+            <param name="status">статус заказа, передаваемый ОСМП Qiwi</param>
+            <returns>Результат обработки интернет магазином, данных полученных от ОСМП</returns>
+        </member>
+        <member name="T:QiwiShop.ShopClientWSServer">
+            <summary>
+            Хост-сервис для сервера ОСМП. (использутеся в WinForms) 
+            Подробности в статическом методе Help()
+            </summary>
+        </member>
+        <member name="M:QiwiShop.ShopClientWSServer.Host(System.Uri,System.Boolean,System.Boolean)">
+            <summary>
+            Запуск сервиса для Осмп Qiwi
+            </summary>
+            <param name="listenUrl">Базовый url для отправки (как в личном кабинете), например http://mysite.ru/qiwi </param>
+            <param name="Easy">признак простого пароля, иначе будет использоватся подпись SOAP-сообщений WSS X.509</param>
+            <returns></returns>
+        </member>
+        <member name="M:QiwiShop.ShopClientWSServer.ValidEasy(System.String,System.String,System.String)">
+            <summary>
+            Простая проверка пароля в updateBill
+            </summary>
+            <param name="password">пароль к проверке</param>
+            <param name="txn">– уникальный идентификатор счета (максимальная длина 30 байт)</param>
+            <param name="password_shop">пароль магазина</param>
+            <returns></returns>
+        </member>
+        <member name="M:QiwiShop.ShopClientWSServer.CreateEasyPassword(System.String,System.String)">
+            <summary>
+            Создание простого пароля для updateBill
+            </summary>
+            <param name="password_shop">пароль магазина</param>
+            <param name="txn">– уникальный идентификатор счета (максимальная длина 30 байт)</param>
+            <returns></returns>
+        </member>
+        <member name="M:QiwiShop.ShopClientWSServer.Help">
+            <summary>
+            Возвращает тестовый код для проверки сервиса на localhost
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="E:QiwiShop.ShopClientWSServer.OnErrorHost">
+            <summary>
+            Обработчик ошибки при создании хост-сервиса
+            </summary>
+        </member>
+        <member name="P:QiwiShop.ShopClientWSServer.Certificate">
+            <summary>
+            Сертификат Qiwi сервера
+            </summary>
+        </member>
+        <member name="E:QiwiShop.ShopClientWSServer.OnUpdateBill">
+            <summary>
+            Обаботчик запроса от ОСМП
+            </summary>
+        </member>
+        <member name="P:QiwiShop.ShopClientWSServer.IsEasy">
+            <summary>
+            Признак простой схемы проверки пароля
+            </summary>
+        </member>
+        <member name="P:QiwiShop.ShopClientWSServer.IsDebug">
+            <summary>
+            Флаг отладки сервиса
+            </summary>
+        </member>
+        <member name="T:QiwiShop.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:QiwiShop.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:QiwiShop.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
